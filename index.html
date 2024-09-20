@@ -7,6 +7,10 @@
     <link rel="icon" type="image/png" href="1.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #005cbf, #28a745);
@@ -44,7 +48,7 @@
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1.2s ease-in-out;
+            animation: fadeInUp 1.2s ease-in-out, pulse 2s infinite;
         }
 
         .download-button:hover {
@@ -62,17 +66,94 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Мобильная версия */
-        @media (max-width: 600px) {
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Анимированный светящийся эффект для фона */
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px #ffca2c, 0 0 20px #ffca2c, 0 0 30px #ffca2c;
+            }
+            to {
+                box-shadow: 0 0 20px #ffca2c, 0 0 40px #ffca2c, 0 0 50px #ffca2c;
+            }
+        }
+
+        /* Адаптивная верстка */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+            }
+
+            .download-button {
+                padding: 12px 35px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
             }
+
             p {
-                font-size: 1.2rem;
+                font-size: 1rem;
+                margin-bottom: 20px;
             }
+
             .download-button {
-                padding: 12px 30px;
-                font-size: 16px;
+                padding: 10px 30px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            .download-button {
+                padding: 8px 25px;
+                font-size: 12px;
+            }
+        }
+
+        /* Мобильные устройства: 320px */
+        @media (max-width: 320px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.8rem;
+            }
+
+            .download-button {
+                padding: 7px 20px;
+                font-size: 11px;
             }
         }
     </style>
@@ -83,10 +164,37 @@
     <p>Ваши медицинские данные всегда актуальны. Приложение помогает врачам оперативно получать доступ к обновленным данным.</p>
     
     <a href="ЕМИАС.ИНФО (А).apk" download>
-        <button class="download-button">Скачать приложение</button>
+        <button class="download-button glow">Скачать приложение</button>
     </a>
 
     <p>Совместимо с Android</p>
+
+    <script>
+        // Циклическая анимация появления заголовка и текста
+        let headline = document.querySelector('h1');
+        let description = document.querySelector('p');
+
+        function animateText() {
+            headline.style.opacity = 0;
+            description.style.opacity = 0;
+
+            setTimeout(() => {
+                headline.style.opacity = 1;
+                description.style.opacity = 1;
+            }, 500);
+        }
+
+        // Анимация пульсации кнопки
+        let downloadButton = document.querySelector('.download-button');
+
+        function pulseButton() {
+            downloadButton.classList.add('pulse');
+        }
+
+        // Зациклим анимации на 5 секундных интервалах
+        setInterval(animateText, 5000);
+        setInterval(pulseButton, 5000);
+    </script>
 
 </body>
 </html>
